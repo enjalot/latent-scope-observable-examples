@@ -1,0 +1,54 @@
+{
+  "id": "scopes-001",
+  "embedding_id": "embedding-001",
+  "umap_id": "umap-009",
+  "cluster_id": "cluster-001",
+  "cluster_labels_id": "cluster-001-labels-001",
+  "label": "OpenAI small + Labels",
+  "description": "",
+  "embedding": {
+    "id": "embedding-001",
+    "model_id": "openai-text-embedding-3-small",
+    "dataset_id": "us-federal-laws",
+    "text_column": "Title",
+    "dimensions": 1536,
+    "prefix": ""
+  },
+  "umap": {
+    "id": "umap-009",
+    "embedding_id": "embedding-001",
+    "neighbors": 100,
+    "min_dist": 0.1,
+    "align": "embedding-001,embedding-003,embedding-005,embedding-006,embedding-007,embedding-009,embedding-011",
+    "align_id": "umap-009"
+  },
+  "cluster": {
+    "id": "cluster-001",
+    "umap_id": "umap-009",
+    "samples": 25,
+    "min_samples": 5,
+    "n_clusters": 340,
+    "n_noise": 17859
+  },
+  "cluster_labels": {
+    "id": "cluster-001-labels-001",
+    "cluster_id": "cluster-001",
+    "model_id": "openai-gpt-4-turbo-preview",
+    "text_column": "Title",
+    "context": "",
+    "system_prompt": {
+      "role": "system",
+      "content": "You're job is to summarize lists of items with a short label of no more than 4 words. \n\nThe user will submit a bulleted list of items and you should choose a label that best summarizes the theme of the list so that someone browsing the labels will have a good idea of what is in the list. \nDo not use punctuation, just return a few words that summarize the list."
+    },
+    "max_tokens": 127910
+  },
+  "rows": 49746,
+  "columns": [
+    "x",
+    "y",
+    "cluster",
+    "raw_cluster",
+    "label"
+  ],
+  "size": 773123
+}

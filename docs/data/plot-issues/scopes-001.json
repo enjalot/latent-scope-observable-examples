@@ -1,0 +1,44 @@
+{
+  "id": "scopes-001",
+  "embedding_id": "embedding-002",
+  "umap_id": "umap-001",
+  "cluster_id": "cluster-001",
+  "cluster_labels_id": "cluster-001-labels-001",
+  "label": "Plot issues & PRs",
+  "description": "OpenAI large embeddings an GPT4-turbo summary",
+  "embedding": {
+    "id": "embedding-002",
+    "model_id": "openai-text-embedding-3-large",
+    "dataset_id": "plot_issues",
+    "text_column": "text",
+    "dimensions": 3072,
+    "prefix": ""
+  },
+  "umap": {
+    "id": "umap-001",
+    "embedding_id": "embedding-002",
+    "neighbors": 25,
+    "min_dist": 0.1
+  },
+  "cluster": {
+    "id": "cluster-001",
+    "umap_id": "umap-001",
+    "samples": 15,
+    "min_samples": 5,
+    "cluster_selection_epsilon": 0.005,
+    "n_clusters": 35,
+    "n_noise": 524
+  },
+  "cluster_labels": {
+    "id": "cluster-001-labels-001",
+    "cluster_id": "cluster-001",
+    "model_id": "openai-gpt-4-turbo-preview",
+    "text_column": "text",
+    "context": "The items in this list are github issues and pull requests for a data visualization library. Please summarize the content accordingly",
+    "system_prompt": {
+      "role": "system",
+      "content": "You're job is to summarize lists of items with a short label of no more than 4 words. \nThe items in this list are github issues and pull requests for a data visualization library. Please summarize the content accordingly\nThe user will submit a bulleted list of items and you should choose a label that best summarizes the theme of the list so that someone browsing the labels will have a good idea of what is in the list. \nDo not use punctuation, just return a few words that summarize the list."
+    },
+    "max_tokens": 127887
+  }
+}
