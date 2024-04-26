@@ -8,10 +8,18 @@ export default {
   // lets you organize them into sections and have unlisted pages.
   pages: [
     {
-      name: "Latent Scope",
+      name: "Guides",
       pages: [
-        {name: "Plot Issues & PRs", path: "/plot-issues"},
-        {name: "US Federal Laws", path: "/us-federal-laws"}
+        {name: "Install & Configure", path: "/install-and-config"},
+        {name: "Your First Scope", path: "/your-first-scope"},
+        {name: "Exporting data", path: "/exporting-data"},
+        // {name: "Cluster Sculpting", path: "/cluster-sculpting"},
+      ]
+    },
+    { 
+      name: "Example Analysis", pages: [
+        {name: "GitHub Issues & PRs", path: "/plot-issues"},
+        {name: "US Federal Laws", path: "/us-federal-laws"},
       ]
     }
   ],

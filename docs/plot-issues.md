@@ -1,5 +1,5 @@
 ---
-title: Plot Issues & PRs
+title: GitHub Issues & PRs
 ---
 
 <style>
