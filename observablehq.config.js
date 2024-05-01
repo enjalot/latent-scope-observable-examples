@@ -66,6 +66,16 @@ export default {
     }
   }
   
+  .pageshot {
+    width: 60%;
+  }
+  .screenshot {
+    width: 55%;
+    margin: 0 24px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    margin-bottom: 16px;
+  }
+  
   </style>
   <div style="display: flex; align-items: center; gap: 0.5rem; height: 2.2rem; margin: -1.5rem -2rem 2rem -2rem; padding: 0.5rem 2rem; border-bottom: solid 1px var(--theme-foreground-faintest); font: 500 16px var(--sans-serif);">
     <div style="display: flex; flex-grow: 1; justify-content: space-between; align-items: baseline;">

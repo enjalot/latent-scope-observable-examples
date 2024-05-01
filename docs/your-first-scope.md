@@ -3,18 +3,6 @@ title: Your First Scope
 toc: true
 ---
 
-<style>
-  .pageshot {
-    width: 60%;
-  }
-  .screenshot {
-    width: 55%;
-    margin: 0 24px;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-    margin-bottom: 16px;
-  }
-</style>
-
 # Your First Scope
 
 Let's walk through creating your first scope. You can use the sample data in this guide or use your own data and follow along.
@@ -26,7 +14,7 @@ of survey questions and answers extracted from the [2022 Data Visualization Soci
 
 
 # Starting the tool
-If you've already [installed & configured](/install-and-config) Latent Scope, you can start the web UI 
+If you've already [installed & configured](install-and-config) Latent Scope, you can start the web UI 
 ```bash
 cd ~/latent-scope-data
 ls-serve
@@ -118,7 +106,7 @@ This last step can make a huge difference in the exploration and curation experi
 <img src="/assets/first-scope/labels-01.png" alt="Project step" class="pageshot">
 
 By default we just label each cluster with it's index, and if you want a very fast local CPU option you can use the **nltk top-words** method. 
-Otherwise, you can choose from a short list of LLM providers to summarize your entries. See the [Install & Configure section](/install-and-config#third-party-api-keys) to add API keys for providers.
+Otherwise, you can choose from a short list of LLM providers to summarize your entries. See the [Install & Configure section](install-and-config#third-party-api-keys) to add API keys for providers.
 
 <img src="/assets/first-scope/labels-models.png" alt="Project step" class="pageshot">
 
@@ -131,7 +119,7 @@ _We are actively looking to add [more LLM models](https://github.com/enjalot/lat
 # Save Scope
 The final step is really just naming your scope and giving it an optional description. <img src="/assets/first-scope/scope-01.png" alt="Project step" class="pageshot">
 
-Click the **New Scope** button to save the scope and pull together all of the data generated via the process into a convenient format ready for [Export](/exporting-data) or [Exploration and Curation](/explore-and-curate).
+Click the **New Scope** button to save the scope and pull together all of the data generated via the process into a convenient format ready for [Export](exporting-data) or [Exploration and Curation](explore-and-curate).
 
 <img src="/assets/first-scope/end.png" alt="Project step" class="pageshot">
 
