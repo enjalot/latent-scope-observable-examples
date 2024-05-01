@@ -21,7 +21,6 @@ What can you do with Latent Scope? The following examples demonstrate the kinds 
 * Explore free-responses from surveys in this [datavis survey analysis](datavis-survey)
 * Cluster thousands of [GitHub issues and PRs](plot-issues)
 * Sort through two hundred years and tens of thousands of [US Federal laws](us-federal-laws)
-* Look in the mirror of your [tweets](tweets)
 
 ## Inputs and Outputs
 To use Latent Scope you will need some data to input. This can be in the form of a CSV file, parquet file or a Pandas DataFrame. 

@@ -19,6 +19,7 @@ export default {
     },
     { 
       name: "Example Analysis", pages: [
+        {name: "Datavis Survey", path: "/datavis-survey"},
         {name: "GitHub Issues & PRs", path: "/plot-issues"},
         {name: "US Federal Laws", path: "/us-federal-laws"},
       ]

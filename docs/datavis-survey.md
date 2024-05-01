@@ -1,10 +1,12 @@
 ---
-toc: false
+title: Datavis Survey Analysis
 ---
 
+<style>
+</style>
 
-# Latent Scope: U.S. Federal Laws 
-<h2><a href="https://osf.io/mrghc/?view_only">Source data</a>. Generated with <a href="https://github.com/enjalot/latent-scope">Latent Scope</a></h2>
+<h1>Latent Scope: Plot Issues & Pull Requests</h1>
+<h2><a href="https://gist.github.com/curran/003cca0643e9947162359268821415f5">Source data</a>. Generated with <a href="https://github.com/enjalot/latent-scope">Latent Scope</a></h2>
 
 <div style="border: 1px solid gray;">
   ${resize((width) => scatter(data.toArray(), { 
@@ -29,16 +31,13 @@ toc: false
   </div>
   ${selected.length == 1 ? Inputs.table([tableData[selected[0]]], { 
       columns: [
-        "Title", 
-        "date_of_passage", 
+        "DataVizNotUnderstood",
+        "Role",
+        "YearsDataVizExperience",
+        "Location",
         "label", 
         "cluster"
       ],
-      width: {
-        "date_of_passage": 100,
-        "label": 250,
-        "cluster": 40
-      },
       rows: 1 
     }) : htl.html`<div style="height:43px"></div>`
   }
@@ -63,16 +62,14 @@ canvas.value = []
 ```js
 const table = Inputs.table(tableData, { 
       columns: [
-        "Title", 
-        "date_of_passage", 
+        "DataVizNotUnderstood",
+        "Role",
+        "YearsDataVizExperience",
+        "Location",
         "label", 
         "cluster"
       ],
-      width: {
-        "date_of_passage": 100,
-        "label": 250,
-        "cluster": 40
-      },
+      
       rows: 25
     })
 ```
@@ -108,15 +105,14 @@ if(selected.length > 1) {
 }
 ```
 
-```js
-import {DuckDBClient} from "npm:@observablehq/duckdb";
-```
+
 ```js
 const db = DuckDBClient.of({
-  input: FileAttachment("data/us-federal-laws/input.parquet"),
-  scope: FileAttachment("data/us-federal-laws/scopes-001.parquet")
+  input: FileAttachment("data/datavis-survey/input.parquet"),
+  scope: FileAttachment("data/datavis-survey/scopes-001.parquet")
 });
 ```
+
 
 ```js
 // const rows = db.sql`SELECT * FROM input`

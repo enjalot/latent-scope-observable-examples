@@ -116,9 +116,7 @@ if(selected.length > 1) {
 }
 ```
 
-```js
-import * as duckdb from "npm:@duckdb/duckdb-wasm";
-```
+
 ```js
 const db = DuckDBClient.of({
   input: FileAttachment("data/plot-issues/input.parquet"),
