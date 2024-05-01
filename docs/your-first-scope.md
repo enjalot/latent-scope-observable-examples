@@ -9,9 +9,6 @@ Let's walk through creating your first scope. You can use the sample data in thi
 To use the sample data you can [download this csv](https://storage.googleapis.com/fun-data/latent-scope/examples/dvs-survey/datavis-misunderstood.csv) 
 of survey questions and answers extracted from the [2022 Data Visualization Society annual survey](https://gist.github.com/curran/003cca0643e9947162359268821415f5).
 
-[YOUTUBE VIDEO WALKTHRU]
-
-
 
 # Starting the tool
 If you've already [installed & configured](install-and-config) Latent Scope, you can start the web UI 
