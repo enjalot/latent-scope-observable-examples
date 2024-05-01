@@ -36,11 +36,11 @@ There are a few settings Latent Scope uses to run, they are stored in a `.env` f
 
 You can also see the settings in the web UI at http://localhost:5001/settings
 
-### Third Party API keys
+## Third Party API keys
 You may want to use third party APIs like OpenAI to run parts of the latent scope process. 
 You can do so by setting the API keys in http://localhost:5001/settings
 
-<img src="/assets/settings-api-keys.png" alt="Settings API Keys" style="height: 200px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-top: 5px;">
+<img src="/assets/install/settings-api-keys.png" alt="Settings API Keys" style="height: 200px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); margin-top: 5px;">
 
 
 

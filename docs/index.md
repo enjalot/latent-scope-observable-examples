@@ -3,7 +3,6 @@ toc: true
 ---
 
 
-
 # Latent Scope
 Latent Scope is an open source tool for interactively curating unstructured data. The tool enables a repeatable process for embedding, projecting, clustering, summarizing and visualizating text data.
 
@@ -15,6 +14,8 @@ Latent Scope is an open source tool for interactively curating unstructured data
 You can see the kind of analysis enabled by Latent Scope in the following examples:
 * [plot issues](/plot-issues) - [data export page]() | [YouTube]()
 * [us federal laws](/us-federal-laws) - [data export page]() | [YouTube]()
+* [datavis survey]
+* [tweets]
 
 
 ## Inputs and Outputs
