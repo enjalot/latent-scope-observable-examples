@@ -35,7 +35,9 @@ ls-serve
 and visit http://localhost:5001
 
 # The Process
-Latent Scope takes you through a five step process resulting in what we call a "scope". A scope contains all the relevant data needed to visualize and curate your dataset using embeddings. You can see more about the resulting data format in the [Exporting data](/exporting-data) section. Each step in this process feeds into the next, you can go with the default parameters or experiment with different choices at each step as necessary. 
+Latent Scope takes you through a five step process resulting in what we call a "scope". A scope contains all the relevant data needed to visualize and curate your dataset using embeddings. Each step in this process feeds into the next, this guide will walk you through the basics of the process so you can try it on your own data.
+
+<img src="/assets/process-crop.png" alt="The End" class="screenshot">
 
 At the end of the process you will see something like this, with your data ready to explore, curate and export:
 
