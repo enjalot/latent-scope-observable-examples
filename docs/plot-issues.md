@@ -7,51 +7,37 @@ title: GitHub Issues & PRs
 
 <h1>Latent Scope: Plot Issues & Pull Requests</h1>
 <h2><a href="https://osf.io/mrghc/?view_only">Source data</a>. Generated with <a href="https://github.com/enjalot/latent-scope">Latent Scope</a></h2>
-
-<div style="border: 1px solid gray;">
-  ${resize((width) => scatter(data.toArray(), { 
-    canvas, 
-    width, 
-    height: 500, 
-    color: (d) => d.cluster 
-    //color: (d) => d.raw_cluster
-  }))}
-</div>
-
-<div>
-  ${data.toArray().length} points. 
-  ${display(selected.length)} points ${selected.length == 1 ? "hovered" : "selected"}. ${!selected.length ? "Hold shift + drag to select multiple points.":""}
-  <div style="display:inline-block">
-    ${
-        selected.length > 1 ? Inputs.button("Deselect", {
-          value: null, 
-          reduce: () => canvas.scatter.select([])
-        }) : ""
-    }
+<div style="border: 1px solid gray; position:relative; height: 500px;">
+  <div>
+      ${resize((width) => scatter(data.toArray(), { 
+        canvas, 
+        width, 
+        height: 500, 
+        pointSize: 5,
+        color: (d) => d.cluster 
+    }))}
   </div>
-  ${selected.length == 1 ? Inputs.table([tableData[selected[0]]], { 
-      columns: [
-        "title", "body",
-        "state",
-        "created_at",
-        "closed_at",
-        "label", 
-        "cluster"
-      ],
-      width: {
-        "title": 250,
-        "state": 40,
-        "label": 250,
-        "cluster": 40
-      },
-      rows: 1 
-    }) : htl.html`<div style="height:43px"></div>`
-  }
+  <div style="position:absolute;top:0;pointer-events:none;">
+      ${hull(hulls, { 
+        width: map.width,
+        height: map.height,
+        xd: map.xd,
+        yd: map.yd
+      })
+      }
+  </div>
+  <div style="position:absolute;top:0;pointer-events:none;">
+      ${hp ? hull([hulls[hp.cluster]], { 
+        fill: "rgba(20,20,20,0.25)",
+        width: map.width,
+        height: map.height,
+        xd: map.xd,
+        yd: map.yd
+      }) : "" }
+  </div>
   
-</div>
+  ${tip}
 
-<div>
-${table}
 </div>
 
 
@@ -60,9 +46,7 @@ const selected = view(canvas)
 ```
 
 ```js
-// TODO: this recreates the canvas
 const canvas = document.createElement("canvas")
-canvas.value = []
 ```
 
 ```js

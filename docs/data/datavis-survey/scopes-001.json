@@ -530,6 +530,7 @@
       "description": "This is cluster 37 with 4 items.",
       "hull": [
         666,
+        562,
         323,
         571,
         514
@@ -626,11 +627,13 @@
       "label": "Data Visualization Essentials",
       "description": "This is cluster 45 with 10 items.",
       "hull": [
-        562,
+        199,
         366,
         696,
         582,
-        163
+        163,
+        21,
+        361
       ],
       "cluster": 45
     },

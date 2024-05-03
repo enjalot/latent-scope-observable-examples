@@ -34,33 +34,49 @@ export function scatter(data, {
     }
     scatterplot = createScatterplot(scatterSettings);
     scatterCache.set(canvas, scatterplot)
+    canvas.value = { 
+      xd: [-1, 1], 
+      yd: [-1, 1], 
+      selected: [],
+      hovered: [], 
+      width, 
+      height 
+    }
 
+    scatterplot.subscribe(
+      "view",
+      ({ camera, view, xScale: xs, yScale: ys }) => {
+        let xd = xs.domain();
+        let yd = ys.domain();
+        canvas.value.xd = xd
+        canvas.value.yd = yd
+        canvas.dispatchEvent(new Event("input"));
+    }
+    );
     scatterplot.subscribe("select", ({ points }) => {
-      canvas.value = points
+      canvas.value.selected= points
       canvas.dispatchEvent(new Event("input"));
     });
     scatterplot.subscribe("deselect", () => {
-      canvas.value = []
+      canvas.value.selected = []
       canvas.dispatchEvent(new Event("input"));
     });
     scatterplot.subscribe("pointOver", (pointIndex) => {
-      if(canvas.value.length <= 1) {
-        canvas.value = [pointIndex]
-        canvas.dispatchEvent(new Event("input"));
-      }
+      canvas.value.hovered = [pointIndex]
+      canvas.dispatchEvent(new Event("input"));
     });
-    scatterplot.subscribe("pointOut", (poitnIndex) => {
-      if(canvas.value.length <= 1) {
-        canvas.value = []
-        canvas.dispatchEvent(new Event("input"));
-      }
+    scatterplot.subscribe("pointOut", (pointIndex) => {
+      canvas.value.hovered = []
+      canvas.dispatchEvent(new Event("input"));
     });
     canvas.scatter = scatterplot
   } else {
     // update the scatterplot
     scatterplot = scatterCache.get(canvas)
-    scatterplot.set({ width });
-    console.log("setting width", width)
+    scatterplot.set({ width, height });
+    canvas.value.width = width
+    canvas.value.height = height
+    canvas.dispatchEvent(new Event("input"));
   }
 
   const points = data.map(d => [
