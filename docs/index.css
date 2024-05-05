@@ -51,6 +51,7 @@
   display: none;
 }
 
+
 /* HULL COMPONENT */
 .hull {
   display: block;
@@ -83,7 +84,14 @@
 .cluster-description {
   margin: 6px;
   padding: 4px;
+}
 
+.cluster-card .static-table {
+  margin-top: 6px;
+}
+
+.cluster-card .static-table thead th {
+  background: #f0f0f0;
 }
 
 @container not (min-width: 640px) {

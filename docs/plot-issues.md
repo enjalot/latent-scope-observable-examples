@@ -7,6 +7,7 @@ title: GitHub Issues & PRs
 
 <h1>Latent Scope: Plot Issues & Pull Requests</h1>
 <h2><a href="https://osf.io/mrghc/?view_only">Source data</a>. Generated with <a href="https://github.com/enjalot/latent-scope">Latent Scope</a></h2>
+
 <div style="border: 1px solid gray; position:relative; height: 500px;">
   <div>
       ${resize((width) => scatter(data.toArray(), { 
@@ -35,14 +36,97 @@ title: GitHub Issues & PRs
         yd: map.yd
       }) : "" }
   </div>
-  
+
   ${tip}
 
 </div>
 
+<div class="red">
+${isMobileDevice ? "Warning: regl-scatter does not play well on mobile. Please keep scrolling to see the analysis. Interacting with the map should be done on a desktop." : ""}
+</div>
+
+
+<div>
+  ${data.toArray().length} points. 
+  ${map.selected.length} points selected. <i>${!map.selected.length ? "Hold shift + drag to select multiple points.":""}</i>
+  <div style="display:inline-block">
+    ${
+        map.selected.length ? Inputs.button("Deselect", {
+          value: null, 
+          reduce: () => canvas.scatter.select([])
+        }) : ""
+    }
+  </div>
+</div>
+<br/>
+<div class="static-table">
+  ${Inputs.table(tableData, { 
+        columns: [
+          "text",
+          "state",
+          "type",
+        ],
+        width: {
+          "text": "40%"
+        },
+        rows: 15
+      })}
+</div>
 
 ```js
-const selected = view(canvas)
+const selcluster = view(Inputs.select(scope.cluster_labels_lookup, { value: d => d.cluster, format: x => x.cluster + ": " + x.label, label: "Cluster:"}))
+```
+<div>
+  ${clusterCard(selcluster.cluster, "", tableConfig, da, scope)}
+</div>
+
+
+```js
+// ----------------------------------------------------------
+```
+
+
+```js
+const tableConfig = { 
+  columns: [
+    "text",
+    "state",
+    "type",
+  ],
+  width: {
+    "text": "60%"
+  },
+  rows: 15
+}
+```
+
+```js
+const map = view(canvas)
+```
+
+```js
+const tip = tooltip({})
+```
+
+```js
+let hp = da[map.hovered[0]]
+ ```
+
+```js
+if(hp) {
+  // display the tooltip
+  // console.log("p, sel", p, selected)
+  tip.show(hp, map, `
+  <i>Cluster ${hp["cluster"]}: ${hp["label"]}</i>
+  <br/>
+  <span>state: ${hp["state"]}
+  <span>type: ${hp["type"]}
+  <br/>
+  ${hp["text"]}
+  `)
+} else {
+  tip.hide()
+}
 ```
 
 ```js
@@ -50,82 +134,51 @@ const canvas = document.createElement("canvas")
 ```
 
 ```js
-const table = Inputs.table(tableData, { 
-      columns: [
-        "title", "body",
-        "state",
-        "created_at",
-        "closed_at",
-        "label", 
-        "cluster"
-      ],
-      width: {
-        "title": 250,
-        "state": 40,
-        "label": 250,
-        "cluster": 40
-      },
-      rows: 25
-    })
-```
-
-```js
-const chosen = view(table)
-```
-```js
-// indices of the rows selected from the table so we can highlight them on the map
-let indices = []
-if(!selected.length && (chosen.length < tableData.length)) {
-  indices = chosen.map(c => tableData.indexOf(c))
+let tableData = []
+if(map.selected.length > 0) {
+  // tableData = []
+  map.selected.forEach(i => tableData.push(da[i]))
 }
 ```
 
 ```js
-// highlight and zoom to points chosen on the table
-if(indices.length && canvas.scatter) {
-  canvas.scatter.select(indices, { preventEvent: true })
-  // canvas.scatter.zoomToPoints(indices, { padding: 0.1  })
-} else {
-  // can't undo it because this updates everytime scatter zooms for some reason
-  // canvas.scatter.zoomToOrigin()
-}
-```
-
-```js
-let tableData = data.toArray()
-if(selected.length > 1) {
-  tableData = []
-  const da = data.toArray()
-  selected.forEach(i => tableData.push(da[i]))
-}
+// calculate the hull points
+const hulls = scope.cluster_labels_lookup.map(c => {
+  return c.hull.map(idx => da.find(d => d.index === idx))
+})
 ```
 
 
 ```js
 const db = DuckDBClient.of({
-  input: FileAttachment("data/plot-issues/input.parquet"),
-  scope: FileAttachment("data/plot-issues/scopes-001.parquet")
+  scope: FileAttachment("data/plot-issues/scopes-001-input.parquet")
 });
 ```
 
+```js
+const scope = FileAttachment("data/plot-issues/scopes-001.json").json()
+```
 
 ```js
 // const rows = db.sql`SELECT * FROM input`
-// const scope = db.sql`SELECT * FROM scope`
-const data = db.sql`
-  WITH input_with_row_number AS (
-    SELECT *, ROW_NUMBER() OVER () AS rn FROM input
-  ),
-  scope_with_row_number AS (
-    SELECT *, ROW_NUMBER() OVER () AS rn FROM scope
-  )
-  SELECT input_with_row_number.*, scope_with_row_number.*
-  FROM input_with_row_number
-  JOIN scope_with_row_number ON input_with_row_number.rn = scope_with_row_number.rn
-`
+const data = db.sql`SELECT * FROM scope`
+```
+```js
+const da = data.toArray().map(d => d.toJSON())
+```
+```js
+console.log("data!", da)
+console.log("scope!", scope)
+console.log("hulls!", hulls)
 ```
 
 ```js
 import {scatter} from "./components/scatter.js";
+import {hull} from "./components/hull.js";
+import {tooltip} from "./components/tooltip.js";
+import {clusterCard} from "./components/clusterCard.js";
 ```
 
+```js
+const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+```

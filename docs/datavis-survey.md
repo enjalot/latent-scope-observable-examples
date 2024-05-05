@@ -12,18 +12,16 @@ _"What do you think people you work with just don't get about the data visualiza
 
 Let's take a look at how Latent Scope can help us pull out some insight from those responses by examining the clusters it's identified. Note that this page is using the exported scope from the [your first scope](your-first-scope) guide, and much of this analysis could be done within the tool.
 
-Before we get to the fun visualizations, let's take a look at the input data. The data is an extract of the [full survey](https://gist.github.com/curran/003cca0643e9947162359268821415f5), where the answer to the question is stored in `DataVizNotUnderstood`, and we also have multiple-choice answer of the respondant's `Role` along with how many years of data visualization experience they have in `YearsDataVizExperience`:
+Before we get to the fun visualizations, let's take a look at the input data. The data is an extract of the [full survey](https://gist.github.com/curran/003cca0643e9947162359268821415f5), where the answer to the question is stored in `DataVizNotUnderstood`, and we also have multiple-choice answer of the respondant's `Role`:
 
 <div class="static-table">
   ${Inputs.table(da, { 
         columns: [
           "DataVizNotUnderstood",
           "Role",
-          "YearsDataVizExperience",
         ],
         width: {
-          "DataVizNotUnderstood": "50%",
-          "YearsDataVizExperience": "100px"
+          "DataVizNotUnderstood": "70%",
         },
         rows:10 
       })}
@@ -88,7 +86,6 @@ ${isMobileDevice ? "Warning: regl-scatter does not play well on mobile. Please k
         columns: [
           "DataVizNotUnderstood",
           "Role",
-          "YearsDataVizExperience",
           "label", 
         ],
         width: {
@@ -109,37 +106,37 @@ Of course these automated steps are never perfect, so Latent Scope is designed t
 
 Let's take a closer look at some of the clusters we got, starting with my favorite (because it's so true!) 
 <div>
-  ${clusterCard(27, "These responses confirm a long-standing belief I've personally held: that cleaning and preparing data is a huge part of data visualization work. This principle is part of the motivation for building Latent Scope, a robust process for adding structure to data so it becomes possible to visualize!", da, scope)}
+  ${clusterCard(27, "These responses confirm a long-standing belief I've personally held: that cleaning and preparing data is a huge part of data visualization work. This principle is part of the motivation for building Latent Scope, a robust process for adding structure to data so it becomes possible to visualize!", tableConfig, da, scope)}
 </div>
 
 As I mentioned, the process isn't perfect, and here we see a cluster that could have easily been combined with Cluster 27:
 
 <div>
-  ${clusterCard(28, "These responses all seem like they would fit just as well in cluster 27.", da, scope)}
+  ${clusterCard(28, "These responses all seem like they would fit just as well in cluster 27.", tableConfig, da, scope)}
 </div>
 
 In fact, I did use the explore tool to combine a couple of clusters into this one:
 
 <div>
-  ${clusterCard(3, "Data viz takes time!", da, scope)}
+  ${clusterCard(3, "Data viz takes time!", tableConfig, da, scope)}
 </div>
 
 And we can see that how much time it takes to make data visualizations is a common response, there is this other large cluster:
 <div>
-  ${clusterCard(14, "Notice the conspicious lack of the word 'viz' in these responses. Otherwise they would fit well in Cluster 3.", da, scope)}
+  ${clusterCard(14, "Notice the conspicious lack of the word 'viz' in these responses. Otherwise they would fit well in Cluster 3.", tableConfig, da, scope)}
 </div>
 
 As you can see, the embeddings (and UMAP, and clustering) may separate text based on different concepts. The last two clusters are conceptually very similar with the main difference being that most people used the word "viz" in one cluster and not in the other. I find it quite amazing that this level of separation is possible, but it may sometimes not be what you want to separate.
 
 The theme of time and effort is expressed further in other clusters:
 <div>
-  ${clusterCard(20, "Again, these responses could be reasonably combined with Cluster 3 or 14, but as the label implies there is the added idea of complexity, details and intention added to many responses.", da, scope)}
+  ${clusterCard(20, "Again, these responses could be reasonably combined with Cluster 3 or 14, but as the label implies there is the added idea of complexity, details and intention added to many responses.", tableConfig, da, scope)}
 </div>
 <div>
-  ${clusterCard(21, "Here is more time, but now we also have a lot more 'effort' mixed in.", da, scope)}
+  ${clusterCard(21, "Here is more time, but now we also have a lot more 'effort' mixed in.", tableConfig, da, scope)}
 </div>
 <div>
-  ${clusterCard(11, "Speaking of effort, these responses are all about effort and don't mention time explicitly.", da, scope)}
+  ${clusterCard(11, "Speaking of effort, these responses are all about effort and don't mention time explicitly.", tableConfig, da, scope)}
 </div>
 
 Whew! Data visualization certainly takes a lot of time and effort! There are many more clusters to explore (${scope.cluster_labels_lookup.length} in fact), instead of listing them all out let's end with a little interactive choice:
@@ -147,7 +144,7 @@ Whew! Data visualization certainly takes a lot of time and effort! There are man
 const selcluster = view(Inputs.select(scope.cluster_labels_lookup, { value: d => d.cluster, format: x => x.cluster + ": " + x.label, label: "Cluster:"}))
 ```
 <div>
-  ${clusterCard(selcluster.cluster, "", da, scope)}
+  ${clusterCard(selcluster.cluster, "", tableConfig, da, scope)}
 </div>
 
 What are you waiting for? Try [Latent Scope](https://github.com/enjalot/latent-scope) out on your own data!
@@ -155,7 +152,18 @@ What are you waiting for? Try [Latent Scope](https://github.com/enjalot/latent-s
 ```js
 // -------------------------------------------------
 ```
-
+```js
+const tableConfig = { 
+  columns: [
+    "DataVizNotUnderstood",
+    "Role",
+  ],
+  width: {
+    "DataVizNotUnderstood": "70%",
+  },
+  rows: 12
+}
+```
 
 ```js
 const map = view(canvas)

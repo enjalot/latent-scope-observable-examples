@@ -2,9 +2,9 @@ import {html} from "npm:htl";
 import * as Inputs from "npm:@observablehq/inputs";
 import * as Plot from "npm:@observablehq/plot";
 
-export function clusterCard(cluster, description, da, scope) {
+export function clusterCard(cluster, description, tableConfig, da, scope) {
   const cda = da.filter(d => d.cluster == cluster)
-  return html`<div class="grid grid-cols-1">
+  return html`<div class="cluster-card grid grid-cols-1">
   <div class="card">
     <h2>Cluster ${cluster}: ${scope.cluster_labels_lookup[cluster].label}</h2>
     <h3>${cda.length} rows</h3>
@@ -38,18 +38,7 @@ export function clusterCard(cluster, description, da, scope) {
       </div>
     </div>
     <div class="static-table">
-      ${Inputs.table(cda, { 
-            columns: [
-              "DataVizNotUnderstood",
-              "Role",
-              "YearsDataVizExperience",
-            ],
-            width: {
-              "DataVizNotUnderstood": "60%",
-              "YearsDataVizExperience": "100px"
-            },
-            rows: 12
-          })}
+      ${Inputs.table(cda, tableConfig)}
     </div>
 </div>`
 }
