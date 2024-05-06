@@ -8,7 +8,12 @@ export function tooltip({
     .attr("class", "tooltip")
 
   function show(p, map, html) {
-    tooltip.html(html)
+    if (html instanceof DocumentFragment) {
+      tooltip.html("")
+      tooltip.node().appendChild(html);
+    } else {
+      tooltip.html(html);
+    }
     tooltip.style("display", "block")
     let x = scaleLinear().domain(map.xd).range([0, map.width])
     let y = scaleLinear().domain(map.yd).range([map.height, 0])

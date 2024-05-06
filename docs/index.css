@@ -66,6 +66,7 @@
   padding: 8px;
   border-radius: 4px;
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+  max-width: 640px;
 }
 
 .cluster-content {
@@ -79,11 +80,20 @@
   margin: 6px;
   width: 300px;
   max-width: 300px;
+  min-width: 300px;
   display: inline-block;
 }
-.cluster-description {
-  margin: 6px;
+.cluster-diagram {
   padding: 4px;
+  border-radius: 4px;
+  margin: 6px;
+  max-width: 300px;
+}
+.cluster-description {
+  padding: 4px;
+  border-radius: 4px;
+  margin: 6px;
+  max-width: 300px;
 }
 
 .cluster-card .static-table {
@@ -95,4 +105,7 @@
 }
 
 @container not (min-width: 640px) {
+  .cluster-content {
+    flex-direction: column;
+  }
 }

@@ -29,71 +29,39 @@ Before we get to the fun visualizations, let's take a look at the input data. Th
 
 As you can see, it's not very straightforward to pick out patterns just by scrolling through the text, so let's take a look at what Latent Scope gave us:
 
+```js
+Plot.plot({
+        marks: [
+          Plot.hull(hulls.flatMap(d => d), {
+            x: "x",
+            y: "y",
+            z: "cluster",
+            fill: "lightgray",
+            fillOpacity: 0.1,
+            stroke: "lightgray",
+            curve: "catmull-rom",
+          }),
+          Plot.dot(da, {
+            x: "x",
+            y: "y",
+            r: 2,
+            fill: "cluster",
+            title: d => `${d["cluster"]}: ${d["label"]}
+Role: ${d["Role"]}
 
-<div style="border: 1px solid gray; position:relative; height: 500px;">
-  <div>
-      ${resize((width) => scatter(data.toArray(), { 
-        canvas, 
-        width, 
-        height: 500, 
-        pointSize: 5,
-        color: (d) => d.cluster 
-    }))}
-  </div>
-  <div style="position:absolute;top:0;pointer-events:none;">
-      ${hull(hulls, { 
-        width: map.width,
-        height: map.height,
-        xd: map.xd,
-        yd: map.yd
-      })
-      }
-  </div>
-  <div style="position:absolute;top:0;pointer-events:none;">
-      ${hp ? hull([hulls[hp.cluster]], { 
-        fill: "rgba(20,20,20,0.25)",
-        width: map.width,
-        height: map.height,
-        xd: map.xd,
-        yd: map.yd
-      }) : "" }
-  </div>
-
-  ${tip}
-
-</div>
-
-<div class="red">
-${isMobileDevice ? "Warning: regl-scatter does not play well on mobile. Please keep scrolling to see the analysis. Interacting with the map should be done on a desktop." : ""}
-</div>
-
-
-<div>
-  ${data.toArray().length} points. 
-  ${map.selected.length} points selected. <i>${!map.selected.length ? "Hold shift + drag to select multiple points.":""}</i>
-  <div style="display:inline-block">
-    ${
-        map.selected.length ? Inputs.button("Deselect", {
-          value: null, 
-          reduce: () => canvas.scatter.select([])
-        }) : ""
-    }
-  </div>
-</div>
-<br/>
-<div class="static-table">
-  ${Inputs.table(tableData, { 
-        columns: [
-          "DataVizNotUnderstood",
-          "Role",
-          "label", 
+${d["DataVizNotUnderstood"]}`,
+            tip: true
+          }),
         ],
-        width: {
-          "DataVizNotUnderstood": "40%",
-        },
-        rows: 15
-      })}
-</div>
+        width: 500,
+        height: 500,
+        margin: 20,
+        color: { scheme: "cool" },
+        y: { axis: null},
+        x: { axis: null },
+      })
+```
+
 
 The map is created by going through the 4 step process in Latent scope:  
 1. Embed - run each piece of text through an embedding model
@@ -106,37 +74,37 @@ Of course these automated steps are never perfect, so Latent Scope is designed t
 
 Let's take a closer look at some of the clusters we got, starting with my favorite (because it's so true!) 
 <div>
-  ${clusterCard(27, "These responses confirm a long-standing belief I've personally held: that cleaning and preparing data is a huge part of data visualization work. This principle is part of the motivation for building Latent Scope, a robust process for adding structure to data so it becomes possible to visualize!", tableConfig, da, scope)}
+  ${clusterCard(27, {description: "These responses confirm a long-standing belief I've personally held: that cleaning and preparing data is a huge part of data visualization work. This principle is part of the motivation for building Latent Scope, a robust process for adding structure to data so it becomes possible to visualize!", tableConfig, da, scope, hulls})}
 </div>
 
 As I mentioned, the process isn't perfect, and here we see a cluster that could have easily been combined with Cluster 27:
 
 <div>
-  ${clusterCard(28, "These responses all seem like they would fit just as well in cluster 27.", tableConfig, da, scope)}
+  ${clusterCard(28,{description: "These responses all seem like they would fit just as well in cluster 27.", tableConfig, da, scope, hulls})}
 </div>
 
 In fact, I did use the explore tool to combine a couple of clusters into this one:
 
 <div>
-  ${clusterCard(3, "Data viz takes time!", tableConfig, da, scope)}
+  ${clusterCard(3, {description: "Data viz takes time!", tableConfig, da, scope, hulls})}
 </div>
 
 And we can see that how much time it takes to make data visualizations is a common response, there is this other large cluster:
 <div>
-  ${clusterCard(14, "Notice the conspicious lack of the word 'viz' in these responses. Otherwise they would fit well in Cluster 3.", tableConfig, da, scope)}
+  ${clusterCard(14, {description: "Notice the conspicious lack of the word 'viz' in these responses. Otherwise they would fit well in Cluster 3.", tableConfig, da, scope, hulls})}
 </div>
 
 As you can see, the embeddings (and UMAP, and clustering) may separate text based on different concepts. The last two clusters are conceptually very similar with the main difference being that most people used the word "viz" in one cluster and not in the other. I find it quite amazing that this level of separation is possible, but it may sometimes not be what you want to separate.
 
 The theme of time and effort is expressed further in other clusters:
 <div>
-  ${clusterCard(20, "Again, these responses could be reasonably combined with Cluster 3 or 14, but as the label implies there is the added idea of complexity, details and intention added to many responses.", tableConfig, da, scope)}
+  ${clusterCard(20, {description: "Again, these responses could be reasonably combined with Cluster 3 or 14, but as the label implies there is the added idea of complexity, details and intention added to many responses.", tableConfig, da, scope, hulls})}
 </div>
 <div>
-  ${clusterCard(21, "Here is more time, but now we also have a lot more 'effort' mixed in.", tableConfig, da, scope)}
+  ${clusterCard(21, {description: "Here is more time, but now we also have a lot more 'effort' mixed in.", tableConfig, da, scope, hulls})}
 </div>
 <div>
-  ${clusterCard(11, "Speaking of effort, these responses are all about effort and don't mention time explicitly.", tableConfig, da, scope)}
+  ${clusterCard(11, {description: "Speaking of effort, these responses are all about effort and don't mention time explicitly.", tableConfig, da, scope, hulls})}
 </div>
 
 Whew! Data visualization certainly takes a lot of time and effort! There are many more clusters to explore (${scope.cluster_labels_lookup.length} in fact), instead of listing them all out let's end with a little interactive choice:
@@ -144,7 +112,7 @@ Whew! Data visualization certainly takes a lot of time and effort! There are man
 const selcluster = view(Inputs.select(scope.cluster_labels_lookup, { value: d => d.cluster, format: x => x.cluster + ": " + x.label, label: "Cluster:"}))
 ```
 <div>
-  ${clusterCard(selcluster.cluster, "", tableConfig, da, scope)}
+  ${clusterCard(selcluster.cluster, {description: "", tableConfig, da, scope, hulls})}
 </div>
 
 What are you waiting for? Try [Latent Scope](https://github.com/enjalot/latent-scope) out on your own data!

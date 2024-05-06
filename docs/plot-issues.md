@@ -8,76 +8,70 @@ title: GitHub Issues & PRs
 <h1>Latent Scope: Plot Issues & Pull Requests</h1>
 <h2><a href="https://osf.io/mrghc/?view_only">Source data</a>. Generated with <a href="https://github.com/enjalot/latent-scope">Latent Scope</a></h2>
 
-<div style="border: 1px solid gray; position:relative; height: 500px;">
-  <div>
-      ${resize((width) => scatter(data.toArray(), { 
-        canvas, 
-        width, 
-        height: 500, 
-        pointSize: 5,
-        color: (d) => d.cluster 
-    }))}
-  </div>
-  <div style="position:absolute;top:0;pointer-events:none;">
-      ${hull(hulls, { 
-        width: map.width,
-        height: map.height,
-        xd: map.xd,
-        yd: map.yd
-      })
-      }
-  </div>
-  <div style="position:absolute;top:0;pointer-events:none;">
-      ${hp ? hull([hulls[hp.cluster]], { 
-        fill: "rgba(20,20,20,0.25)",
-        width: map.width,
-        height: map.height,
-        xd: map.xd,
-        yd: map.yd
-      }) : "" }
-  </div>
 
-  ${tip}
+```js
+Plot.plot({
+        marks: [
+          Plot.hull(hulls.flatMap(d => d), {
+            x: "x",
+            y: "y",
+            z: "cluster",
+            fill: "lightgray",
+            fillOpacity: 0.1,
+            stroke: "lightgray",
+            curve: "catmull-rom",
+          }),
+          Plot.dot(da, {
+            x: "x",
+            y: "y",
+            r: 2,
+            fill: "cluster",
+            title: d => `${d["type"]} ${d["state"]}
+${d["title"]}]
 
-</div>
-
-<div class="red">
-${isMobileDevice ? "Warning: regl-scatter does not play well on mobile. Please keep scrolling to see the analysis. Interacting with the map should be done on a desktop." : ""}
-</div>
-
-
-<div>
-  ${data.toArray().length} points. 
-  ${map.selected.length} points selected. <i>${!map.selected.length ? "Hold shift + drag to select multiple points.":""}</i>
-  <div style="display:inline-block">
-    ${
-        map.selected.length ? Inputs.button("Deselect", {
-          value: null, 
-          reduce: () => canvas.scatter.select([])
-        }) : ""
-    }
-  </div>
-</div>
-<br/>
-<div class="static-table">
-  ${Inputs.table(tableData, { 
-        columns: [
-          "text",
-          "state",
-          "type",
+${d["body"]}`,
+            tip: true
+          }),
         ],
-        width: {
-          "text": "40%"
-        },
-        rows: 15
-      })}
-</div>
+        width: 500,
+        height: 500,
+        margin: 30,
+        color: { scheme: "cool" },
+        y: { axis: null},
+        x: { axis: null },
+      })
+```
+
 
 ```js
 const selcluster = view(Inputs.select(scope.cluster_labels_lookup, { value: d => d.cluster, format: x => x.cluster + ": " + x.label, label: "Cluster:"}))
 ```
 <div>
-  ${clusterCard(selcluster.cluster, "", tableConfig, da, scope)}
+  ${clusterCard(selcluster.cluster, {
+    description: "", 
+    plot: Plot.plot({
+        marks: [
+          Plot.barX(da, Plot.groupY({x: "count"}, {
+            filter: d => d.cluster == selcluster.cluster,
+            y: "type",
+            x: "count",
+            fill: "state",
+            tip: true
+          }))
+        ],
+        marginLeft: 80,
+        marginBottom: 30,
+        width: 300,
+        height: 300,
+        y: { label: null },
+        x: { label: null },
+        style: { "background-color": "white" }
+      }),
+    tableConfig, 
+    da, 
+    scope, 
+    hulls
+  })}
 </div>
 
 
@@ -96,9 +90,12 @@ const tableConfig = {
   width: {
     "text": "60%"
   },
+  sort: "state",
+  reverse: true,
   rows: 15
 }
 ```
+
 
 ```js
 const map = view(canvas)
@@ -116,14 +113,14 @@ let hp = da[map.hovered[0]]
 if(hp) {
   // display the tooltip
   // console.log("p, sel", p, selected)
-  tip.show(hp, map, `
+  tip.show(hp, map, md.unsafe(`
   <i>Cluster ${hp["cluster"]}: ${hp["label"]}</i>
   <br/>
   <span>state: ${hp["state"]}
   <span>type: ${hp["type"]}
   <br/>
   ${hp["text"]}
-  `)
+  `))
 } else {
   tip.hide()
 }
@@ -177,6 +174,20 @@ import {scatter} from "./components/scatter.js";
 import {hull} from "./components/hull.js";
 import {tooltip} from "./components/tooltip.js";
 import {clusterCard} from "./components/clusterCard.js";
+
+import markdownit from "markdown-it";
+// import matter from "npm:gray-matter";
+```
+```js
+const Markdown = new markdownit({html: true});
+
+const md = {
+  unsafe(string) {
+    const template = document.createElement("template");
+    template.innerHTML = Markdown.render(string);
+    return template.content.cloneNode(true);
+  }
+};
 ```
 
 ```js
