@@ -1,13 +1,12 @@
 ---
-title: GitHub Issues & PRs
+title: enjalot's tweets
 ---
 
 <style>
 </style>
 
-<h1>Latent Scope: Plot Issues & Pull Requests</h1>
-<h2><a href="https://osf.io/mrghc/?view_only">Source data</a>. Generated with <a href="https://github.com/enjalot/latent-scope">Latent Scope</a></h2>
-
+# enjalot's tweets
+## Looking in the mirror of 10,000 tweets
 
 ```js
 Plot.plot({
@@ -24,12 +23,12 @@ Plot.plot({
           Plot.dot(da, {
             x: "x",
             y: "y",
-            r: 2,
+            r: 1,
             fill: "cluster",
-            title: d => `${d["type"]} ${d["state"]}
-${d["title"]}]
+            title: d => `${d["cluster"]}: ${d["label"]} 
+${d["type"]} ${d["created_at"]}
 
-${d["body"]}`,
+${d["full_text"]}`,
             tip: true
           }),
         ],
@@ -49,7 +48,7 @@ const selcluster = view(Inputs.select(scope.cluster_labels_lookup, { value: d =>
 <div>
   ${clusterCard(selcluster.cluster, {
     description: "", 
-    plot: barPlot(selcluster.cluster),
+    plot: barPlot(selcluster.cluster, { field: "year"}),
     tableConfig, 
     da, 
     scope, 
@@ -57,35 +56,6 @@ const selcluster = view(Inputs.select(scope.cluster_labels_lookup, { value: d =>
   })}
 </div>
 
-```js
-Plot.plot({
-  marks: [
-    Plot.frame(),
-    Plot.barX(da, Plot.groupY({x: "count"}, {
-      y: "type",
-      x: "count",
-      fill: "state",
-      tip: true,
-      order: ["open", "closed"],
-      // sort: { fy: "x", reverse: true }
-    }))
-  ],
-  facet: {
-    y: d => d.cluster,
-    data: da
-  },
-  marginLeft: 80,
-  marginRight: 250,
-  marginBottom: 30,
-  y: { label: null },
-  x: { label: null, grid: true },
-  // fy: { domain: scope.cluster_labels_lookup.map(d => d.cluster) },
-  fy: { 
-    tickFormat: x => x + ": " + scope.cluster_labels_lookup[x].label 
-  },
-  // style: { "background-color": "#f0f0f0" }
-})
-```
 
 ```js
 // ----------------------------------------------------------
@@ -95,14 +65,14 @@ Plot.plot({
 ```js
 const tableConfig = { 
   columns: [
-    "text",
-    "state",
+    "full_text",
+    "created_at",
     "type",
   ],
   width: {
-    "text": "60%"
+    "full_text": "60%"
   },
-  sort: "state",
+  sort: "created_at",
   reverse: true,
   rows: 15
 }
@@ -140,6 +110,7 @@ if(hp) {
 
 ```js
 function barPlot(cluster, {
+  field = "type",
   width = 300,
   height = 300,
 } = {}) {
@@ -147,18 +118,18 @@ function barPlot(cluster, {
         marks: [
           Plot.barX(da, Plot.groupY({x: "count"}, {
             filter: d => d.cluster == cluster,
-            y: "type",
+            y: field,
             x: "count",
-            fill: "state",
+            // fill: "state",
             tip: true,
-            order: ["open", "closed"]
+            // order: ["open", "closed"]
           }))
         ],
         marginLeft: 80,
         marginBottom: 30,
         width,
         height,
-        y: { label: null },
+        y: { label: null, tickFormat: x => x.toString() },
         x: { label: null, grid: true },
         style: { "background-color": "#f0f0f0" }
       })
@@ -187,12 +158,12 @@ const hulls = scope.cluster_labels_lookup.map(c => {
 
 ```js
 const db = DuckDBClient.of({
-  scope: FileAttachment("data/plot-issues/scopes-001-input.parquet")
+  scope: FileAttachment("data/enjalot-tweets/scopes-001-input.parquet")
 });
 ```
 
 ```js
-const scope = FileAttachment("data/plot-issues/scopes-001.json").json()
+const scope = FileAttachment("data/enjalot-tweets/scopes-001.json").json()
 ```
 
 ```js

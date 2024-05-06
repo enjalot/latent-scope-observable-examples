@@ -28,66 +28,70 @@ ${isMobileDevice ? Plot.plot({
       })
       :  "" }
 
-<div>
-<div class="regl-container" style="border: 1px solid gray; position:relative; height: 500px;"">
+<div class="regl-container" >
+  <div style="border: 1px solid gray; position:relative; height: 500px;"">
+    <div>
+        ${resize((width) => scatter(data.toArray(), { 
+          canvas, 
+          width, 
+          height: 500, 
+          pointSize: 2,
+          color: (d) => d.cluster 
+      }))} 
+    </div>
+    <div style="position:absolute;top:0;pointer-events:none;">
+        ${hull(hulls, { 
+          width: map.width,
+          height: map.height,
+          xd: map.xd,
+          yd: map.yd
+        })
+        }
+    </div>
+    <div style="position:absolute;top:0;pointer-events:none;">
+        ${hp ? hull([hulls[hp.cluster]], { 
+          fill: "rgba(20,20,20,0.25)",
+          width: map.width,
+          height: map.height,
+          xd: map.xd,
+          yd: map.yd
+        }) : "" }
+    </div>
+    <div>
+      ${tip}
+    </div>
+  </div>
+
+
   <div>
-      ${resize((width) => scatter(data.toArray(), { 
-        canvas, 
-        width, 
-        height: 500, 
-        pointSize: 2,
-        color: (d) => d.cluster 
-    }))} 
-  </div>
-  <div style="position:absolute;top:0;pointer-events:none;">
-      ${hull(hulls, { 
-        width: map.width,
-        height: map.height,
-        xd: map.xd,
-        yd: map.yd
-      })
+    ${data.toArray().length} points. 
+    ${map.selected.length} points selected. <i>${!map.selected.length ? "Hold shift + drag to select multiple points.":""}</i>
+    <div style="display:inline-block">
+      ${
+          map.selected.length ? Inputs.button("Deselect", {
+            value: null, 
+            reduce: () => canvas.scatter.select([])
+          }) : ""
       }
+    </div>
   </div>
-  <div style="position:absolute;top:0;pointer-events:none;">
-      ${hp ? hull([hulls[hp.cluster]], { 
-        fill: "rgba(20,20,20,0.25)",
-        width: map.width,
-        height: map.height,
-        xd: map.xd,
-        yd: map.yd
-      }) : "" }
-  </div>
-  ${tip}
-</div>
 
+  <br/>
 
-<div>
-  ${data.toArray().length} points. 
-  ${map.selected.length} points selected. <i>${!map.selected.length ? "Hold shift + drag to select multiple points.":""}</i>
-  <div style="display:inline-block">
-    ${
-        map.selected.length ? Inputs.button("Deselect", {
-          value: null, 
-          reduce: () => canvas.scatter.select([])
-        }) : ""
-    }
+  <div class="static-table">
+    ${Inputs.table(tableData, { 
+          columns: [
+            "Title",
+            "date_of_passage",
+            "label",
+          ],
+          sort: "date_of_passage",
+          width: {
+            "Title": "60%"
+          },
+          rows: 15
+        })}
   </div>
-</div>
-<br/>
-<div class="static-table">
-  ${Inputs.table(tableData, { 
-        columns: [
-          "Title",
-          "date_of_passage",
-          "label",
-        ],
-        sort: "date_of_passage",
-        width: {
-          "Title": "80%"
-        },
-        rows: 15
-      })}
-</div>
 </div>
 
 My favorite clusters
@@ -270,7 +274,7 @@ function dateBars(cluster) {
     height: 300,
     y: { label: null, tickFormat: x => Math.floor(x).toString() },
     x: { label: null },
-    style: { "background-color": "white" }
+    // style: { "background-color": "white" }
   })
 }
 ```

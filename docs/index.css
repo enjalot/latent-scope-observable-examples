@@ -74,7 +74,7 @@
   flex-direction: row;
 }
 .cluster-plot {
-  background-color: white;
+  /* background-color: white; */
   padding: 4px;
   border-radius: 4px;
   margin: 6px;
@@ -88,6 +88,7 @@
   border-radius: 4px;
   margin: 6px;
   max-width: 300px;
+  min-width: 300px;
 }
 .cluster-description {
   padding: 4px;
