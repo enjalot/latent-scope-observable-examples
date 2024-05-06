@@ -1,5 +1,5 @@
 {
-  "ls_version": "0.2.0",
+  "ls_version": "0.2.1",
   "id": "scopes-001",
   "embedding_id": "embedding-002",
   "umap_id": "umap-001",
@@ -17,8 +17,12 @@
       "closed_at",
       "user",
       "type",
+      "comments",
       "title",
-      "body"
+      "body",
+      "id",
+      "number",
+      "html_url"
     ],
     "text_column": "text",
     "column_metadata": {
@@ -32,7 +36,11 @@
         "categories": [
           "closed",
           "open"
-        ]
+        ],
+        "counts": {
+          "closed": 1579,
+          "open": 285
+        }
       },
       "created_at": {
         "type": "string",
@@ -52,6 +60,18 @@
         "categories": [
           "pull_request",
           "issue"
+        ],
+        "counts": {
+          "pull_request": 1001,
+          "issue": 863
+        }
+      },
+      "comments": {
+        "type": "number",
+        "unique_values_count": 25,
+        "extent": [
+          0,
+          44
         ]
       },
       "title": {
@@ -61,9 +81,31 @@
       "body": {
         "type": "string",
         "unique_values_count": 1695
+      },
+      "id": {
+        "type": "number",
+        "unique_values_count": 1864,
+        "extent": [
+          732707577,
+          2166983855
+        ]
+      },
+      "number": {
+        "type": "number",
+        "unique_values_count": 1864,
+        "extent": [
+          1,
+          2010
+        ]
+      },
+      "html_url": {
+        "type": "string",
+        "unique_values_count": 1864,
+        "url": true
       }
     },
-    "potential_embeddings": []
+    "potential_embeddings": [],
+    "ls_version": "0.2.1"
   },
   "embedding": {
     "id": "embedding-002",
@@ -149,20 +191,24 @@
       "label": "Documentation and Features",
       "description": "This is cluster 3 with 31 items.",
       "hull": [
-        461,
-        806,
-        729,
         1228,
         193,
-        274
+        274,
+        248,
+        461,
+        469,
+        1633,
+        434,
+        806,
+        729
       ],
       "cluster": 3
     },
     {
-      "label": "Typos and Links",
+      "label": "Documentation Updates",
       "description": "This is cluster 4 with 54 items.",
       "hull": [
-        10,
+        465,
         3,
         797,
         908,
@@ -171,7 +217,9 @@
         174,
         876,
         1272,
-        1510
+        654,
+        477,
+        471
       ],
       "cluster": 4
     },
@@ -179,14 +227,14 @@
       "label": "Documentation updates",
       "description": "This is cluster 5 with 44 items.",
       "hull": [
-        434,
-        465,
-        654,
         7,
         569,
         594,
         700,
-        1631
+        1631,
+        1622,
+        1405,
+        458
       ],
       "cluster": 5
     },
@@ -241,15 +289,15 @@
       "cluster": 8
     },
     {
-      "label": "Scale and insets",
+      "label": "Axis and scale adjustments",
       "description": "This is cluster 9 with 28 items.",
       "hull": [
         954,
         1314,
         1325,
-        853,
-        1077,
-        740,
+        1593,
+        1429,
+        1296,
         811
       ],
       "cluster": 9
@@ -274,7 +322,8 @@
       "description": "This is cluster 11 with 97 items.",
       "hull": [
         1389,
-        1429,
+        662,
+        1470,
         1409,
         1550,
         1112,
@@ -340,9 +389,10 @@
         1104,
         462,
         1259,
-        1127,
+        1180,
         162,
-        1332
+        1231,
+        1775
       ],
       "cluster": 15
     },
@@ -384,8 +434,6 @@
         980,
         1062,
         1244,
-        1775,
-        1231,
         824,
         1213,
         1086,
@@ -421,7 +469,7 @@
         398,
         1243,
         1173,
-        248
+        1448
       ],
       "cluster": 20
     },
@@ -546,16 +594,15 @@
       "label": "Data visualization enhancements",
       "description": "This is cluster 28 with 62 items.",
       "hull": [
-        1296,
+        121,
+        1709,
+        1628,
+        667,
         264,
         761,
         1152,
         719,
-        822,
-        121,
-        1709,
-        1628,
-        667
+        822
       ],
       "cluster": 28
     },
@@ -669,5 +716,5 @@
     "ls_index"
   ],
   "size": 40033,
-  "timestamp": "2024-04-23 17:45:39"
+  "timestamp": "2024-05-06 16:22:37"
 }
