@@ -38,6 +38,16 @@ export default {
   // search: true, // activate search
 
   header: `
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-W8EM95KSJZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-W8EM95KSJZ');
+  </script>
+  
   <link rel="stylesheet" type="text/css" href="index.css">
   <div style="display: flex; align-items: center; gap: 0.5rem; height: 2.2rem; margin: -1.5rem -2rem 2rem -2rem; padding: 0.5rem 2rem; border-bottom: solid 1px var(--theme-foreground-faintest); font: 500 16px var(--sans-serif);">
     <div style="display: flex; flex-grow: 1; justify-content: space-between; align-items: baseline;">
