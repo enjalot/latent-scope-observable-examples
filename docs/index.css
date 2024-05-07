@@ -25,6 +25,9 @@
   }
 }
 
+.card {
+  overflow: scroll;
+}
 
 /* DOCUMENTATION STYLES */
 .pageshot {
@@ -97,11 +100,22 @@
   max-width: 300px;
 }
 
-.cluster-card .static-table {
+.input-card table {
+  min-width: 960px;
+}
+.static-table {
+  overflow-x: scroll;
   margin-top: 6px;
 }
+.static-table table {
+  min-width: 640px;
+}
+.card table {
+  min-width: 640px;
+}
 
-.cluster-card .static-table thead th {
+
+.static-table thead th {
   background: #f0f0f0;
 }
 

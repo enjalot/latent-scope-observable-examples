@@ -23,7 +23,9 @@ The notebook itself provides some interesting visualizations focused around when
 We want to focus on the contents of the issues, and just like in our [Datavis Survey example](datavis-survey), just scrolling through a table and reading every issue isn't practical at all:
 
 <div class="card">
+<div class="static-table">
 ${Inputs.table(da, tableConfig)}
+</div>
 </div>
 
 So again, we use Latent Scope's process to create a map of our unstructured text data:
@@ -74,21 +76,23 @@ So at the end of this process we have ${clusterTableData.length} clusters carvin
 Every row of our input data is annotated with a cluster index and label:
 
 <div class="card">
-${Inputs.table(da, {...tableConfig, columns: [
-    "cluster",
-    "label",
-    "html_url",
-    "text",
-    "state",
-    "type"
-  ],
-  width: {
-    ...tableConfig.width,
-    text: "50%",
-    cluster: 50,
-    label: 200
-  }
-})}
+  <div class="static-table">
+    ${Inputs.table(da, {...tableConfig, columns: [
+        "cluster",
+        "label",
+        "html_url",
+        "text",
+        "state",
+        "type"
+      ],
+      width: {
+        ...tableConfig.width,
+        text: "50%",
+        cluster: 50,
+        label: 200
+      }
+    })}
+  </div>
 </div>
 
 We've essentially added some new structure that we can use to filter and group our data, while still attaching the valuable structured metadata we already had.
@@ -125,6 +129,8 @@ We can then also click on the radio button next to each cluster to select it and
 Sorting the table allows us to investigate the various metrics we may care about in relation to the clusters.
 
 
+<div class="input-card">
+
 ```js
 const clusterTableData = scope.cluster_labels_lookup.map(c => {
   let dc = da.filter(d => d.cluster == c.cluster)
@@ -148,15 +154,22 @@ const selclusterTable = view(Inputs.table(clusterTableData, {
     "closed_pull_requests": sparkbar(max(clusterTableData, d => d.closed_pull_requests), "lightblue"),
   },
   width: {
-    "cluster": 50,
+    "cluster": 20,
     "label": "20%"
+  },
+  header: {
+    "cluster": ""
   },
   sort: "open_issues",
   reverse: true,
   multiple: false,
-  value: clusterTableData[11]
+  value: clusterTableData[11],
 }))
 ```
+
+</div>
+
+_Click on the radio button on the left of each cluster in the table above to select it and see the details in the card below_
 
 <div>
   ${clusterCard(selclusterTable.cluster, {
@@ -198,7 +211,7 @@ const tableConfig = {
     "html_url": x => htl.html`<a href=${x}>${x.split("/")[x.split("/").length - 1]}</a>`
   },
   width: {
-    "text": "60%",
+    "text": "50%",
     "html_url": 40,
     "comments": 70,
   },

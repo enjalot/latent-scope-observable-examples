@@ -14,6 +14,7 @@ Let's take a look at how Latent Scope can help us pull out some insight from tho
 
 Before we get to the fun visualizations, let's take a look at the input data. The data is an extract of the [full survey](https://gist.github.com/curran/003cca0643e9947162359268821415f5), where the answer to the question is stored in `DataVizNotUnderstood`, and we also have multiple-choice answer of the respondant's `Role`:
 
+
 <div class="static-table">
   ${Inputs.table(da, { 
         columns: [
