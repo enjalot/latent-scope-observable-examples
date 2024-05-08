@@ -287,7 +287,7 @@ const tableConfig = {
 
 
 ```js
-const map = view(canvas)
+// const map = view(canvas)
 ```
 
 ```js
@@ -295,24 +295,24 @@ const tip = tooltip({})
 ```
 
 ```js
-let hp = da[map.hovered[0]]
+// let hp = da[map.hovered[0]]
  ```
 
 ```js
-if(hp) {
-  // display the tooltip
-  // console.log("p, sel", p, selected)
-  tip.show(hp, map, md.unsafe(`
-  <i>Cluster ${hp["cluster"]}: ${hp["label"]}</i>
-  <br/>
-  <span>state: ${hp["state"]}
-  <span>type: ${hp["type"]}
-  <br/>
-  ${hp["text"]}
-  `))
-} else {
-  tip.hide()
-}
+// if(hp) {
+//   // display the tooltip
+//   // console.log("p, sel", p, selected)
+//   tip.show(hp, map, md.unsafe(`
+//   <i>Cluster ${hp["cluster"]}: ${hp["label"]}</i>
+//   <br/>
+//   <span>state: ${hp["state"]}
+//   <span>type: ${hp["type"]}
+//   <br/>
+//   ${hp["text"]}
+//   `))
+// } else {
+//   tip.hide()
+// }
 ```
 
 ```js
@@ -392,15 +392,15 @@ function sparkbar(max, color) {
 ```
 
 ```js
-const canvas = document.createElement("canvas")
+// const canvas = document.createElement("canvas")
 ```
 
 ```js
-let tableData = []
-if(map.selected.length > 0) {
-  // tableData = []
-  map.selected.forEach(i => tableData.push(da[i]))
-}
+// let tableData = []
+// if(map.selected.length > 0) {
+//   // tableData = []
+//   map.selected.forEach(i => tableData.push(da[i]))
+// }
 ```
 
 ```js

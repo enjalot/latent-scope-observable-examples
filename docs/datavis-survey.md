@@ -135,7 +135,7 @@ const tableConfig = {
 ```
 
 ```js
-const map = view(canvas)
+// const map = view(canvas)
 ```
 
 ```js
@@ -143,37 +143,37 @@ const tip = tooltip({})
 ```
 
 ```js
-let hp = da[map.hovered[0]]
+// let hp = da[map.hovered[0]]
  ```
 
 ```js
-if(hp) {
-  // display the tooltip
-  // console.log("p, sel", p, selected)
-  tip.show(hp, map, `
-  <i>Cluster ${hp["cluster"]}: ${hp["label"]}</i>
-  <br/>
-  <span>Role: ${hp["Role"]}
-  <br/>
-  ${hp["DataVizNotUnderstood"]}
-  `)
-} else {
-  tip.hide()
-}
+// if(hp) {
+//   // display the tooltip
+//   // console.log("p, sel", p, selected)
+//   tip.show(hp, map, `
+//   <i>Cluster ${hp["cluster"]}: ${hp["label"]}</i>
+//   <br/>
+//   <span>Role: ${hp["Role"]}
+//   <br/>
+//   ${hp["DataVizNotUnderstood"]}
+//   `)
+// } else {
+//   tip.hide()
+// }
 ```
 
 
 
 ```js
-const canvas = document.createElement("canvas")
+// const canvas = document.createElement("canvas")
 ```
 
 ```js
-let tableData = []
-if(map.selected.length > 0) {
-  // tableData = []
-  map.selected.forEach(i => tableData.push(da[i]))
-}
+// let tableData = []
+// if(map.selected.length > 0) {
+//   // tableData = []
+//   map.selected.forEach(i => tableData.push(da[i]))
+// }
 ```
 
 ```js

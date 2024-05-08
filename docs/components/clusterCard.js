@@ -10,7 +10,8 @@ export function clusterCard(cluster, {
   da, 
   scope,
   hulls,
-}) {
+  r = 3
+} = {}) {
   const cda = da.filter(d => d.cluster == cluster)
   return html`<div class="cluster-card grid grid-cols-1">
   <div class="card">
@@ -35,7 +36,8 @@ export function clusterCard(cluster, {
             y: "y",
             fill: "cluster",
             fillOpacity: 0.25,
-            stroke: "cluster",
+            stroke: "black",
+            strokeWidth: 2,
             curve: "catmull-rom",
           }),
           Plot.dot(da, {
@@ -43,6 +45,7 @@ export function clusterCard(cluster, {
             x: "x",
             y: "y",
             fill: "cluster",
+            r,
             title: scope.dataset.text_column,
             tip: true
           }),
