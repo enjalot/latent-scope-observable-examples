@@ -26,6 +26,7 @@
 }
 
 .card {
+  overflow-x: scroll;
 }
 
 /* DOCUMENTATION STYLES */
@@ -102,10 +103,12 @@
 .input-card table {
   min-width: 960px;
 }
+
 .static-table {
   overflow-x: scroll;
   margin-top: 6px;
 }
+
 .static-table table {
   min-width: 640px;
 }
