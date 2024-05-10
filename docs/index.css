@@ -27,6 +27,21 @@
 
 .card {
   overflow-x: scroll;
+  background-color: white;
+}
+
+.process-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.process-card {
+  flex: 1;
+  overflow-x: auto !important;
+  min-width: 150px;
+  /* width: 300px; */
+  /* max-width: 300px; */
 }
 
 /* DOCUMENTATION STYLES */
