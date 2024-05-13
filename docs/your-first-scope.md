@@ -6,7 +6,7 @@ toc: true
 # Your First Scope
 
 Let's walk through creating your first scope. You can use the sample data in this guide or use your own data and follow along.
-To use the sample data you can [download this csv](https://storage.googleapis.com/fun-data/latent-scope/examples/dvs-survey/datavis-misunderstood.csv) 
+To use the sample data you can [download this csv](https://storage.googleapis.com/fun-data/latent-scope/examples/dvs-survey/datavis-notunderstood.csv) 
 of survey questions and answers extracted from the [2022 Data Visualization Society annual survey](https://gist.github.com/curran/003cca0643e9947162359268821415f5).
 
 

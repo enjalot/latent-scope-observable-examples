@@ -253,6 +253,7 @@ const civilRights = (await FileAttachment("data/us-federal-laws/Civil Rights.ind
           Plot.hull(hulls.flatMap(d => d), {
             x: "x",
             y: "y",
+            z: "cluster",
             fill: "cluster",
             fillOpacity: 0.1,
             stroke: "lightgray",
@@ -262,7 +263,10 @@ const civilRights = (await FileAttachment("data/us-federal-laws/Civil Rights.ind
           Plot.dot(civilRights, {
             x: "x",
             y: "y",
+            z: "cluster",
+            r: 2,
             fill: "cluster",
+            fill: "gray",
             title: d => `${d.Title}\n${d.date_of_passage}\n${d.cluster}: ${d.label}`,
             tip: true
           }),
