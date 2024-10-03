@@ -14,7 +14,7 @@ mkdir ~/latent-scope-data
 cd ~/latent-scope-data
 
 # create & activate virtual environment
-python3 -m venv lsenv
+python -m venv lsenv
 source lsenv/bin/activate
 
 # install the module
@@ -23,6 +23,8 @@ pip install latentscope
 ls-serve ~/latent-scope-data --port 5001
 ```
 This will start a local webserver from which you can access the tool at [http://localhost:5001](http://localhost:5001)
+
+Latent Scope is developed with python 3.12, so it is the recommended python version. YMMV with earlier versions.
 
 The next time you want to run Latent Scope you can simply do:
 ```bash
