@@ -8,6 +8,8 @@ To process your own data you'll need to install the python module and run it.
 It's recommended to create a folder where the library can store it's data.
 This is also a convenient place to make a virtual environment.
 
+Latent Scope works on Mac, Linux and Windows. Python 3.12 is the recommended python version.
+
 ```bash
 # make a directory for your data to live
 mkdir ~/latent-scope-data
@@ -23,8 +25,6 @@ pip install latentscope
 ls-serve ~/latent-scope-data --port 5001
 ```
 This will start a local webserver from which you can access the tool at [http://localhost:5001](http://localhost:5001)
-
-Latent Scope is developed with python 3.12, so it is the recommended python version. YMMV with earlier versions.
 
 The next time you want to run Latent Scope you can simply do:
 ```bash
